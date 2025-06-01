@@ -30,4 +30,4 @@ function build_package {
 build_package
 
 # Create files.txt, which contain build artifacts
-ls -d  "$repo_dir"/dist/* > files.txt
+ls -d  "$repo_dir"/dist/* | iconv -f ISO8859-1 -t UTF-8 > files.txt
