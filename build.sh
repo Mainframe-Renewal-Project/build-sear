@@ -4,7 +4,7 @@ repo_dir="$PWD/sear"
 repo_ref="main"
 
 # Function that builds SEAR
-function build_package() {
+function build_package {
     pushd "$repo_dir"
 
     # Set up clean build environment
