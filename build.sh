@@ -1,5 +1,3 @@
-#!bash
-
 set -e
 
 repo_dir="$PWD/sear"
