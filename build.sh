@@ -1,13 +1,19 @@
 #!bash
 
+set -e
+
 repo_dir="$PWD/sear"
 repo_ref="main"
 
 # Function that builds SEAR
 function build_package {
+    echo "Building in: $repo_dir"
+
     pushd "$repo_dir"
 
     # Set up clean build environment
+    echo "Fetching ref: $repo_ref"
+
     git fetch --tags origin "$repo_ref"
     git clean -dxf
     git checkout "origin/$repo_ref"
