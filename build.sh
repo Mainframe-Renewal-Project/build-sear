@@ -31,6 +31,7 @@ function build_package {
     cp "$repo_dir/dist/*" "$dist_dir"
 }
 
+mkdir -p "$dist_dir"
 rm "$dist_dir/*"
 
 # Runs the build function
