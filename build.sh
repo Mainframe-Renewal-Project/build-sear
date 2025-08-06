@@ -31,8 +31,10 @@ function build_package {
     cp "$repo_dir/dist/*" "$dist_dir"
 }
 
+if [ -d "$dist_dir" ]; then
+    rm -rF "$dist_dir"
+fi
 mkdir -p "$dist_dir"
-rm -rF "$dist_dir"
 
 # Runs the build function
 build_package python3.12
