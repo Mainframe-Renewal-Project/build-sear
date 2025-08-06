@@ -1,11 +1,14 @@
 set -e
 
+dist_dir="dist"
+
 repo_dir="$PWD/sear"
 repo_ref="main"
 
 # Function that builds SEAR
 function build_package {
     echo "Building in: $repo_dir"
+    echo "Building with $1"
 
     pushd "$repo_dir"
 
@@ -17,17 +20,22 @@ function build_package {
     git checkout "origin/$repo_ref"
 
     # Ready build environment
-    python3 -m venv .venv
-    ./.venv/bin/pip install build
+    $1 -m venv ".venv-$1"
+    "./.venv-$1/bin/pip" install build
 
     # Build package
-    ./.venv/bin/python -m build
+    "./.venv-$1/bin/python" -m build
 
     popd
+
+    cp "$repo_dir/dist/*" "$dist_dir"
 }
 
+rm "$dist_dir/*"
+
 # Runs the build function
-build_package
+build_package python3.12
+build_package python3.13
 
 # Create files.txt, which contain build artifacts
-ls -d  "$repo_dir"/dist/* | iconv -f ISO8859-1 -t UTF-8 > files.txt
+ls -d  "$dist_dir/*" | iconv -f ISO8859-1 -t UTF-8 > files.txt
