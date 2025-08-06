@@ -32,7 +32,7 @@ function build_package {
 }
 
 mkdir -p "$dist_dir"
-rm "$dist_dir/*"
+rm -rF "$dist_dir"
 
 # Runs the build function
 build_package python3.12
