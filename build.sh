@@ -15,7 +15,7 @@ function build_package {
     # Set up clean build environment
     echo "Fetching ref: $repo_ref"
 
-    git fetch --tags origin "$repo_ref"
+    git fetch --tags --force origin "$repo_ref"
     git clean -dxf
     git checkout "origin/$repo_ref"
 
