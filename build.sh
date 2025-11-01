@@ -28,7 +28,7 @@ function build_package {
 
     popd
 
-    cp "$repo_dir/dist/*" "$dist_dir"
+    cp $repo_dir/dist/* "$dist_dir"
 }
 
 if [ -d "$dist_dir" ]; then
