@@ -41,4 +41,4 @@ build_package python3.12
 build_package python3.13
 
 # Create files.txt, which contain build artifacts
-ls -d  "$dist_dir/*" | iconv -f ISO8859-1 -t UTF-8 > files.txt
+ls -d  $dist_dir/* | iconv -f ISO8859-1 -t UTF-8 > files.txt
