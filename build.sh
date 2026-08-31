@@ -16,8 +16,8 @@ function build_package {
 
     echo "Fetching ref: $repo_ref"
     git fetch --tags --force origin "$repo_ref"
+    git reset --hard "origin/$repo_ref"
     git clean -dxf
-    git checkout "origin/$repo_ref"
 
     # Ready build environment (outside the repo, so the tree stays clean)
     $1 -m venv "$venv_dir"
