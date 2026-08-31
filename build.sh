@@ -15,10 +15,14 @@ function build_package {
     # Set up clean build environment
     echo "Fetching ref: $repo_ref"
 
-    git fetch --tags --force origin "$repo_ref"
+    if git rev-parse --is-shallow-repository 2>/dev/null | grep -q true; then
+        git fetch --unshallow --tags --force origin "$repo_ref"
+    else
+        git fetch --tags --force origin "$repo_ref"
+    fi
     git clean -dxf
     git checkout "origin/$repo_ref"
-
+    
     # Ready build environment
     $1 -m venv ".venv-$1"
     "./.venv-$1/bin/pip" install build
