@@ -10,28 +10,25 @@ function build_package {
     echo "Building in: $repo_dir"
     echo "Building with $1"
 
+    venv_dir="$PWD/.venv-$1"
+
     pushd "$repo_dir"
 
-    # Set up clean build environment
     echo "Fetching ref: $repo_ref"
-
-    if git rev-parse --is-shallow-repository 2>/dev/null | grep -q true; then
-        git fetch --unshallow --tags --force origin "$repo_ref"
-    else
-        git fetch --tags --force origin "$repo_ref"
-    fi
+    git fetch --tags --force origin "$repo_ref"
     git clean -dxf
     git checkout "origin/$repo_ref"
-    
-    # Ready build environment
-    $1 -m venv ".venv-$1"
-    "./.venv-$1/bin/pip" install build
+
+    # Ready build environment (outside the repo, so the tree stays clean)
+    $1 -m venv "$venv_dir"
+    "$venv_dir/bin/pip" install build
 
     # Build package
-    "./.venv-$1/bin/python" -m build
+    "$venv_dir/bin/python" -m build
 
     popd
 
+    rm -rf "$venv_dir"
     cp $repo_dir/dist/* "$dist_dir"
 }
 
